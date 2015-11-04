@@ -12,6 +12,7 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+// Added the route for the default
 app.get('/', function(req, res) {
   res.render('index.html');
 });
