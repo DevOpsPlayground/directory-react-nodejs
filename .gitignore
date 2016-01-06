@@ -1,6 +1,6 @@
 # IntelliJ settings
 .idea
 *.iml
-
+.vagrant
 node_modules
 *.log*

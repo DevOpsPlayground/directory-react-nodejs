@@ -1,0 +1,19 @@
+Vagrant.configure("2") do |config|
+ 
+ # Define the docker file and container etc.
+ config.vm.provision "docker"
+ 
+ # The following line terminates all ssh connections. Therefore
+ # Vagrant will be forced to reconnect.
+ # That's a workaround to have the docker command in the PATH
+ config.vm.provision "shell", inline:
+    "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
+ 
+  config.vm.define "dockerhost"
+  config.vm.box = "box-cutter/centos70"
+  config.vm.synced_folder ".", "/usr/local/src"
+ 
+  config.vm.provider :virtualbox do |vb|
+      vb.name = "dockerhost"
+  end
+end
