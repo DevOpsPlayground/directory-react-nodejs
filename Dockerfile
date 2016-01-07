@@ -7,10 +7,11 @@ RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-
 RUN     yum install -y nodejs npm
 
 # Mount the app source
-VOLUME ["/usr/local/src", "/directory-react-nodejs"]
+#VOLUME ["/usr/local/src", "/directory-react-nodejs"]
 
 # Set the working directory
-WORKDIR /directory-react-nodejs
+RUN mkdir -p /usr/local/src
+WORKDIR /usr/local/src
 
 # Install the necessary modules
 RUN npm install && npm -g install nodemon
