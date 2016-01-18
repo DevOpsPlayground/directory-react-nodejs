@@ -1,17 +1,11 @@
-FROM centos:centos6
+FROM mhart/alpine-node
 
-# Enable EPEL for Node.js
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-
-# Install Node.js and npm
-RUN yum install -y nodejs npm
-
-# Set the working directory
-RUN mkdir -p /usr/local/src
-WORKDIR /usr/local/src
+# Mount src directory
+VOLUME ["/code"]
+WORKDIR /code
 
 # Install the necessary modules
-RUN npm install && npm -g install nodemon
+RUN npm -g install nodemon
 
 EXPOSE  5000
-CMD ["nodemon", "/usr/local/src/server.js"]
+CMD ["nodemon", "/code/server.js"]
