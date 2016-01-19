@@ -5,6 +5,7 @@ employeeService = (function () {
     // The public API
     return {
         findById: function(id) {
+	        console.log("Testing")
             return $.ajax(baseURL + "/employees/" + id);
         },
         findByName: function(searchKey) {

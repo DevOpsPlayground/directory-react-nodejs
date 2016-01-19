@@ -16,12 +16,11 @@ Vagrant.configure("2") do |config|
   # Ensure vagrant user can run docker command
   config.vm.provision "shell", inline: "sudo groupadd docker;true"
   config.vm.provision "shell", inline: "sudo usermod -a -G docker vagrant;true"
-#  config.vm.provision "shell", inline: "docker version"
 
   # Build the Docker image
   config.vm.provision "docker" do |d|
     d.build_image "/vagrant", args: "-t emp_directory"
-    d.run "emp_directory", args: "-v '/vagrant/:/code/' --name 'emp_dir_container'"
+    d.run "emp_directory", args: "-v '/vagrant/:/code/' --name 'emp_dir_container' -p 5000:5000"
   end
 
 end
