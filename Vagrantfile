@@ -10,8 +10,9 @@ Vagrant.configure("2") do |config|
     vb.memory = 1024
   end
 
-  # Define the docker file and container etc.
-  #config.vm.provision "docker"
+  # use rsync to keep host in sync with guest VM
+  config.vm.synced_folder ".", "/vagrant", type: "rsync"
+  config.gatling.rsync_on_startup = true
 
   # Ensure vagrant user can run docker command
   config.vm.provision "shell", inline: "sudo groupadd docker;true"
@@ -20,7 +21,7 @@ Vagrant.configure("2") do |config|
   # Build the Docker image
   config.vm.provision "docker" do |d|
     d.build_image "/vagrant", args: "-t emp_directory"
-    d.run "emp_directory", args: "-v '/vagrant/:/code/' --name 'emp_dir_container' -p 5000:5000"
+    d.run "emp_directory", args: "-v '/vagrant/:/code/' --name 'emp_dir_cont' -p 5000:5000"
   end
 
 end
