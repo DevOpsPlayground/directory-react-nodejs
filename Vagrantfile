@@ -2,17 +2,24 @@ Vagrant.configure("2") do |config|
  
   # Configure the VM using virtualbox provider
   config.vm.define "dockerhost"
-  config.vm.box = "williamyeh/centos7-docker"
+  config.vm.box = "AntonioMeireles/coreos-beta"
   config.vm.network "forwarded_port", guest: 5000, host: 5000
  
   config.vm.provider :virtualbox do |vb|
     vb.name = "dockerhost"
     vb.memory = 1024
+ 
+    # On VirtualBox, we don't have guest additions or a functional vboxsf
+    # in CoreOS, so tell Vagrant that so it can be smarter.
+    vb.check_guest_additions = false
+    vb.functional_vboxsf     = false
   end
+
+  config.vbguest.auto_update = false
 
   # use rsync to keep host in sync with guest VM
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
-  config.gatling.rsync_on_startup = true
+  config.gatling.rsync_on_startup = false	
 
   # Ensure vagrant user can run docker command
   config.vm.provision "shell", inline: "sudo groupadd docker;true"
