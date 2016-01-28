@@ -28,8 +28,7 @@ Vagrant.configure("2") do |config|
 
   # Build the Docker image
   config.vm.provision "docker" do |d|
-    d.build_image "/vagrant", args: "-t emp_directory"
-    d.run "emp_directory", args: "-v '/vagrant/:/code/' --name 'emp_dir_cont' -p 5000:5000"
+    d.run "315032081542.dkr.ecr.us-east-1.amazonaws.com/sameetn-repo:latest", args: "-v '/vagrant/:/code/' --name 'emp_dir_cont' -p 5000:5000"
   end
 
 end
