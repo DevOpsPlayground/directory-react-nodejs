@@ -13,8 +13,10 @@ This version of Employee Directory is built with [React](http://facebook.github.
 ## Running the application
 
 1. Make sure you have [Vagrant](http://www.vagrantup.com) installed.
-2. Install the [vagrant-gatling-rsync](https://github.com/smerrill/vagrant-gatling-rsync) plugin for proper rsync
+2. Install the [vagrant-gatling-rsync](https://github.com/smerrill/vagrant-gatling-rsync) and [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugins using the following command
+
    ```vagrant plugin install vagrant-gatling-rsync```
+
 3. Install [Virtualbox](https://www.virtualbox.org/)
 3. Clone this repository
 4. On the command line, navigate (cd) to the **directory-react-nodejs** folder
