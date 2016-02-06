@@ -1,4 +1,5 @@
-# Employee Directory with React and Node
+# Employee Directory with React and Node [![Build Status](https://travis-ci.org/DevOpsPlayground/directory-react-nodejs.svg?branch=master)](https://travis-ci.org/DevOpsPlayground/directory-react-nodejs)
+
 
 Employee directory is a sample application that allows you to look up employees by name, view the details of an employee,
 call, text, or email an employee, and navigate up and down the org chart.
