@@ -6,7 +6,7 @@ node {
 
   // Define the current WORKSPACE
   sh 'pwd > pwd.current'
-  workspace = readFile('pwd.current')
+  workspace = readFile('pwd.current').trim()
   echo "Workspace is ${workspace}"
 
   // Get the code and build
