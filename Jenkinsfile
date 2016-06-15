@@ -17,7 +17,7 @@ node {
   stage 'Package Production'
   sh "rm -r ${workspace}/node_modules"
   sh 'npm install --production'
-  sh "tar czf emp-directory.tar.gz --exclude=.git* --exclude=pwd.current --exclude=*.gz -C ${workspace}"
+  sh 'tar czf emp-directory.tar.gz --exclude=.git* --exclude=pwd.current --exclude=*.gz .'
   archive 'emp-directory.tar.gz'
 
   stage 'Deploy to Development'
