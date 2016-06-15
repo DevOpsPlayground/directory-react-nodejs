@@ -4,6 +4,10 @@ node {
   def nodeHome = tool name: 'Node-6.2.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
   env.PATH = "${nodeHome}:${env.PATH}"
 
+  // Define the current WORKSPACE
+  sh 'pwd > pwd.current'
+  workspace = readFile('pwd.current')
+
   // Get the code and build
   stage 'Build'
   checkout scm
@@ -11,7 +15,7 @@ node {
   sh 'npm test'
 
   stage 'Package Production'
-  sh "rm -rf ${env.WORKSPACE}/node_modules"
+  sh "rm -rf ${workspace}/node_modules"
   sh 'npm install --production'
 
   stage 'Deploy to Development'
