@@ -8,8 +8,6 @@ node {
   sh 'pwd > pwd.current'
   workspace = readFile('pwd.current')
   echo "Workspace is ${workspace}"
-  echo "node_modules are at ${workspace}/node_modules"
-  sh "ls -la ${workspace}/node_modules"
 
   // Get the code and build
   stage 'Build'
@@ -18,8 +16,10 @@ node {
   sh 'npm test'
 
   stage 'Package Production'
-  sh "rm -r ${workspace}/node_modules"
-  sh 'npm install --production'
+  echo "node_modules are at ${workspace}/node_modules"
+  sh "ls -la ${workspace}/node_modules"
+//  sh "rm -r ${workspace}/node_modules"
+//  sh 'npm install --production'
 
   stage 'Deploy to Development'
   sleep 1
