@@ -11,23 +11,32 @@ node {
   sh 'npm test'
 
   stage 'Package Production'
-  sh 'rm -rf ${WORKSPACE}/node_modules'
+  sh "rm -rf ${env.WORKSPACE}/node_modules"
   sh 'npm install --production'
 
   stage 'Deploy to Development'
-  echo 'Deploying to development server'
-  echo 'Smoke test Development'
+  sleep 1
+  echo 'Deployed to development server'
+  sleep 2
+  echo 'Smoke tested Development'
 
   stage 'Deploy to Test'
-  echo 'Deploying to Test server'
-  echo 'Running Regression Tests'
+  sleep 1
+  echo 'Deployed to Test server'
+
+  stage 'Regression Test'
+  sleep 5
   echo 'Regression Tests Complete'
 
   stage 'Deploy to Staging'
-  echo 'Deploying to Staging server'
-  echo 'Smoke test Staging'
+  sleep 1
+  echo 'Deployed to Staging server'
+  sleep 2
+  echo 'Smoke tested Staging'
 
   stage 'Deploy to Production'
-  echo 'Deploying to Production server'
-  echo 'Smoke test Production Done'
+  sleep 1
+  echo 'Deployed to Production server'
+  sleep 2
+  echo 'Smoke tested Production'
 }
