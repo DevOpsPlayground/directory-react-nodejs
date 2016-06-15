@@ -1,7 +1,8 @@
-def nodeHome = tool name: 'Node-6.2.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-env.PATH = "${nodeHome}:${env.PATH}"
-
 node {
+
+  // Define the nodeJS path to use in later stages
+  def nodeHome = tool name: 'Node-6.2.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+  env.PATH = "${nodeHome}:${env.PATH}"
 
   // Get the code and build
   stage 'Build'
