@@ -3,7 +3,7 @@ node {
   // Get the code and build
   stage 'Build'
   deleteDir()
-  git checkout scm
+  checkout scm
   sh 'npm install'
   sh 'npm test'
 
