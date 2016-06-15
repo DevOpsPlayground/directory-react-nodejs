@@ -1,8 +1,10 @@
+def nodeHome = tool name: 'Node-6.2.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+env.PATH = "${nodeHome}:${env.PATH}"
+
 node {
 
   // Get the code and build
   stage 'Build'
-  deleteDir()
   checkout scm
   sh 'npm install'
   sh 'npm test'
