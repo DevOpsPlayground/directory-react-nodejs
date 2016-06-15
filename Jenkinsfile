@@ -17,7 +17,8 @@ node {
   stage 'Package Production'
   sh "rm -r ${workspace}/node_modules"
   sh 'npm install --production'
-  zip archive: true, dir: "${workspace}", glob: '', zipFile: 'emp-directory.zip'
+  sh 'tar czf emp-directory.tar.gz --exclude=.git* --exclude=pwd.current'
+  archive 'emp-directory.tar.gz'
 
   stage 'Deploy to Development'
   sleep 1
