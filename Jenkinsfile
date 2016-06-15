@@ -7,7 +7,6 @@ node {
   // Define the current WORKSPACE
   sh 'pwd > pwd.current'
   workspace = readFile('pwd.current').trim()
-  echo "Workspace is ${workspace}"
 
   // Get the code and build
   stage 'Build'
@@ -16,10 +15,9 @@ node {
   sh 'npm test'
 
   stage 'Package Production'
-  echo "node_modules are at ${workspace}/node_modules"
-  sh "ls -la ${workspace}/node_modules"
-//  sh "rm -r ${workspace}/node_modules"
-//  sh 'npm install --production'
+  sh "rm -r ${workspace}/node_modules"
+  sh 'npm install --production'
+  zip archive: true, dir: "${workspace}", glob: '', zipFile: 'emp-directory.zip'
 
   stage 'Deploy to Development'
   sleep 1
