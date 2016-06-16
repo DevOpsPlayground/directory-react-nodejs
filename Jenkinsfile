@@ -31,7 +31,8 @@ node {
   echo 'Deployed to Test server'
 
   stage 'Regression Test'
-  sleep 5
+  sleep 2
+  sh 'exit 1'
   echo 'Regression Tests Complete'
 
   stage 'Deploy to Staging'
