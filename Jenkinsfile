@@ -11,8 +11,10 @@ node {
 
   // Get the code and build
   stage 'Build'
-  checkout scm
-  withDockerContainer(image: 'mhart/alpine-node', toolName: 'Docker-1.12.0') {
+  // checkout scm
+  // withDockerContainer(image: 'mhart/alpine-node', toolName: 'Docker-1.12.0') {
+  docker.image('mhart/alpine-node').inside {
+    checkout scm
     sh 'npm install'
     sh 'npm test'
   }
