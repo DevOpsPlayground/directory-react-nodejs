@@ -10,9 +10,11 @@ node {
 
   // Get the code and build
   stage 'Build'
-  checkout scm
-  sh 'npm install'
-  sh 'npm test'
+  docker.image('mhart/alpine-node').inside {
+    checkout scm
+    sh 'npm install'
+    sh 'npm test'
+  }
 
   stage 'Package Production'
   sh "rm -r ${workspace}/node_modules"
