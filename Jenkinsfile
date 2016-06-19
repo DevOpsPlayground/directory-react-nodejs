@@ -1,8 +1,9 @@
 node {
 
-  // Define the nodeJS path to use in later stages
+  // Add the tools to the path
   def nodeHome = tool name: 'Node-6.2.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-  env.PATH = "${nodeHome}:${env.PATH}"
+  def dockerTool = tool name: 'Docker-1.12.0'
+  env.PATH = "${nodeHome}:${dockerTool}:${env.PATH}"
 
   // Define the current WORKSPACE
   sh 'pwd > pwd.current'
