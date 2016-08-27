@@ -5,17 +5,18 @@ DOCKER_USER:
 DOCKER_PASS:
   secure: jQMbcPFMhm8AbLyMIUskYgs4Uo9ZMdwgJjpN+aBSWYB8LjSN07Qw9CiIbaOXE+nRshpPumH++U5hHlBRfy8d8/kU/5m/aAn8akDeH9pwSgHSIRcsKnjvRq5ZemLWvYHmWCoCjJfaBbHpE/kpNiZeynQHXmUwNBexB0dzP72pKzhK5ivj0gLt/HRyWDnvIkHKk7T8gduKM3ENmuMNZFFwKKjpFiioBwgEeALLnQJbSU2bxMdWU+QzRv9Zp330j5MSwCfIRoXxs7QD07FgpITG9Y9KJtaZEotRMGYUqhask2zV1/0S2U0qLpHaWR1ms1z4dok1HFynsiMBxn7KCwzsYhkjFoGu8nRzWgM3Ws4gAQ4u0Qkia3X1Sdd0dxzYTZSD2+qA7V4dMHyiWugA5KqmF2yYRzDX23JAuIrM2GyP3n1PIBzdEa7ULk1ib1uZGflsNSZU3Rc3keJQwPYTJlF6+2ZqlYS/V3RRM8NhViXvN70PR0MNBuARgJz/pJG/oIfbO/4mvw80A0AY85fTLoeSDpIEF/YVz4N0EifjNc8j3bEPqvmrd4OwHlg6ShpTEwvDochF44/QYfre/a7CMbFz9Dz1W1Gs4ypeFljDW9rv1ziZNKxWYPELxVzJECfToOJ/SRA70zFpSXrsFeUIUOZkUeGZGB7O3/uPYLrb/kHl1w0=
 
+sudo: required
+
 services:
-- docker
+  - docker
 language: node_js
 node_js:
-- 6.3.1
+  - 6.3.1
 before_script:
-- npm install -g grunt-cli
+  - npm install -g grunt-cli
 script:
-- grunt build
+  - grunt build
 after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-- export REPO=DevOpsPlayground/directory-react-nodejs
-- docker build -f Dockerfile -t sameetn/directory-react-nodejs:latest .
-- docker push sameetn/directory-react-nodejs:latest
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"
+  - docker build -f Dockerfile -t sameetn/directory-react-nodejs:latest .
+  - docker push sameetn/directory-react-nodejs:latest
