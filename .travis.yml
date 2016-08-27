@@ -1,9 +1,21 @@
+env:
+  global:
+    - secure: "EnnQm3/lMD0iXN5cE4mwMxOzY6zRE+Db1cfh5fqA83qQd5qYqpfGLOofRkT4fj3Nnla2lp2ohB+fi2JeaYE594YR8Hb9vyp5ycsgJo9nkFc3932NxugifI/uq2zYvBbFNH889B249B7ibbnHf86UTSxQzyimlUenMzJN/bZxPPLVF3Ay1VtHwYfmLSvRrQAlFPglD7TJlmYwqMrfFvYizsR2Ycw48egq4QPvpHhbnsYotAa2OIkRAEhiHPXHXUb6Y0fKJ+3rfwWisDDM6vNwyoohOFnc7jrN+sopNVcP3uW+YII6/cjSIJgu+DCLoQwEz5iSYfMKxMU6S5oONQpolWw5JZm7qTN8NqjEpSSOYlapbRNTSdI/ILzF3SXnEOYBvp1hJGk2IryaNXc+PWEq1MDAjoeaJNIKzMJUig7mEHe/OM9cVPpggNLQxZhAKoONmqsORz3E6CxxiurZse6IZW9wRzcsaDexR72aR0r93kzYf0ind40/QhpreYcOt2fKuK1AyHnZarD8myQ0zAFDiG3Vg4poPtE3WPpznDBI57NxnIjwBixUkO2MvQdpE2Y7iOWAycVlbN6uXqmbAYLZwps14fHBhRmFqZThCU/GD/6dhOzBAx9+JDf/7URCtXIG/V6De+kd+Wkg+rtaQnn4s1y41kSx8dtiHn72iUqxEnQ=" # DOCKER_EMAIL
+    - secure: "UL7e2KHnpAO/6c7F1NOYK8iuwDRc5MTISybL1gcVfSuZNSN6zO2fIS9qv/B/wSOBcoNTjKyT4BIqEnAfRtRvUgoDK6CoZac72YqwmzKxlu58Ak95Npyq7K8sRiM1UsNyx8BW5F9dxJKtvLKjf/rjCcyaU/sAJZNTJ1JdScukAEYQfW7PIriNJIkL8ScRBMETIT+EPD4DQvDMKI3K2+SA1oJfcT8szkZsKFTBrHkE/Csr8xnyW5kMCG/hq0uuJmgH6KBAqpu/ul9IYxd+X4Uvqiut3JHx8rpkSc08n00M/bsKVFqDHCqzoz3jb4r8mj1MH3YSskFranojJRi4xmlkDal/VJbJu5EtnNOjk+18TaHOnDsydO8/gzEu4oNREbHAUd4bSJW5DndLoR6F8mNYSRoABSA86W352ws1GpqRZFKakWLz53Nitepr3dNsJEbQ4cnG+mX3F4G6sXDxAH1CLDQ0roFU8T9oHgFlSY/failPfPbRKEMiW65HaSEAy831KYztwhA87B6S6fxHxiWC2NpViMmExD13ncr6g8m4MjBoWBTbA6t0Uo2hgew5Jj41Ua3D4LjXBDMJNf7NLhkq8atPKNROgtRPfZVupJGyWYds9JQo3stSgUXvqy541oeTQfpfVFYBy3y5u/oBzDPxilkEuCTXj3n1Mdb/IuYRi9E=" # DOCKER_USER
+    - secure: "I4njoBaVTYZkzMAVqekPFVCcWFLJDiaI+EyVp3PtpzROeN7KOudOZmVIesOusHwGg0hA65EhN8l/25UZtqFl88xIRZuvmn7mgtTxZVtOPpticftPGTri6n3zembdBOKnuchsX99wx7YHHTv41TzsoJtmGFXt1vLrEd+ppLyenKhXY69+awvnkLwh2qm0/gHH29bCd4lweQ6uS72gKv5B0Fj1WXD/0g7Y0ifDKpIZVelTKkJ2cZUMBxD5oy1zMQDP8QO1lEM1q+J6QwF6a8e9P1l7taVKAWDTQEtW//hNcDsmxcHUV79cGmRPpmnHOtongEo+G8w2+c4Yrg525xme7WAj3pc96G5DcVS4tLwu0UtgtKnvru+bRHTF+TJ0W/K7zahAMiMzStARBHVEvilwdz9I6xVWW2xXtolULZcCYgfXKvxXAx/PTKfjySCTYrmy/ULQTsEtL7SJPALk8aERuBZQpZ4cugzPQo71W/lhoOsg+oasozaUF+7qut+GG7Epr0vEjcTrhpjgo5JR7mObM4vYI5dOLmhc8hxO1aMMMhws6lEN+5/1qxynLTT7cN1LmtUfldNoGjWK5SrjY47SOdWeJPEgl8cn6H/HprpF+yztl+2DlJlLdIFGfL3U0FQcTU2ndpKVx88wMngukZ+aWwIE2fedYBgsdlaolbbU7LU=" # DOCKER_PASS
+    - COMMIT=${TRAVIS_COMMIT::8}
+
 language: node_js
-
 node_js:
-  - "6.2.0"
-
+  - 6.3.1
 before_script:
-  - "npm install -g grunt-cli"
+  - npm install -g grunt-cli
 script:
-  - "grunt build"
+  - grunt build
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=DevOpsPlayground/directory-react-nodejs
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT sameetn/directory-react-nodejs:$TAG
+  - docker push sameetn/directory-react-nodejs:$TAG
