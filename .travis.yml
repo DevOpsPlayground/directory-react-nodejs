@@ -13,6 +13,6 @@ before_script:
 script:
   - grunt build
 after_success:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/publish-release.sh; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/publish-docker.sh; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./scripts/publish-release.sh; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./scripts/publish-docker.sh; fi'
 
