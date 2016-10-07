@@ -17,7 +17,7 @@ tar xvjf linux-amd64-github-release.tar.bz2
 sleep 3
 
 # Create a release
-github-release release \
+bin/linux/amd64/github-release release \
     --user $GITHUB_USER \
     --repo $GITHUB_REPO \
     --tag $REPO_TAG\
