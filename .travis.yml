@@ -10,8 +10,11 @@ node_js:
 before_script:
   - npm install -g grunt-cli
 script:
-  - grunt build
+  - grunt buil
+after_script:
 after_success:
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials
   - export CURR_VER=`cat package.json | grep version | tr -s " " ":" | cut -d "\"" -f4`
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./scripts/publish-release.sh; fi'
   # - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./scripts/publish-docker.sh; fi'
