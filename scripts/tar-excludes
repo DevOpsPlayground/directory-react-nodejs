@@ -1,6 +1,0 @@
-*.yml
-Dockerfile
-*.md
-.*
-*.gz
-scripts
