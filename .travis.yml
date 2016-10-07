@@ -10,7 +10,7 @@ node_js:
 before_script:
   - npm install -g grunt-cli
 script:
-  - grunt buil
+  - grunt build
 after_script:
 after_success:
   - git config credential.helper "store --file=.git/credentials"
