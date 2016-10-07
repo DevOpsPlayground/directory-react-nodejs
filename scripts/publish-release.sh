@@ -14,6 +14,7 @@ tar czvf /tmp/react-eg-$REPO_TAG.tar.gz . --exclude-from=./scripts/tar-excludes
 # download the github release binary
 wget https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd64-github-release.tar.bz2
 tar xvjf linux-amd64-github-release.tar.bz2
+sleep 3
 
 # Publish the tar file to the repository
 bin/linux/amd64/github-release upload \
