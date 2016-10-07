@@ -16,6 +16,13 @@ wget https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd6
 tar xvjf linux-amd64-github-release.tar.bz2
 sleep 3
 
+# Create a release
+github-release release \
+    --user $GITHUB_USER \
+    --repo $GITHUB_REPO \
+    --tag $REPO_TAG\
+    --name "react-eg-$REPO_TAG" \
+
 # Publish the tar file to the repository
 bin/linux/amd64/github-release upload \
     --user $GITHUB_USER \
