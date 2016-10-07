@@ -28,5 +28,5 @@ bin/linux/amd64/github-release upload \
     --user $GITHUB_USER \
     --repo $GITHUB_REPO \
     --tag $REPO_TAG\
-    --name "react-eg-$REPO_TAG" \
+    --name "react-eg-$REPO_TAG.tar.gz" \
     --file /tmp/react-eg-$REPO_TAG.tar.gz
