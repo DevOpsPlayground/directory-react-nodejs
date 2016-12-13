@@ -20,4 +20,12 @@ node {
     sh "docker push sameetn/emp_dir:${env.BUILD_NUMBER}"
   }
 
+  stage('Deploy to Swarm Cluster') {
+    def isPresent = sh returnStdout: true, script: 'docker-machine ssh swarm-master docker service ls | grep emp_dir | tr -s " " " " | cut -d " " -f2'
+    if(isPresent?.equals('emp_dir')) {
+      sh "docker-machine ssh swarm-master docker service update --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir "  
+    } else {
+      sh "docker-machine ssh swarm-master docker service create --name emp_dir sameetn/emp_dir:${env.BUILD_NUMBER}"
+    }
+  }
 }
