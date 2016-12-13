@@ -1,6 +1,6 @@
 node {
   // Clean workspace and checkout
-  deletedir
+  deleteDir()
   checkout scm
 
   // Define the current WORKSPACE
@@ -13,7 +13,7 @@ node {
   }
 
   stage('Build and push Docker image') {
-    sh "rm -r ${workspace}/node_modules"
+    sh "rm -rf ${workspace}/node_modules"
     sh 'npm install --production'
     sh "docker build -f Dockerfile -t localhost:5000/emp_dir:${env.BUILD_NUMBER} ."
     sh "docker push localhost:5000/emp_dir:${env.BUILD_NUMBER}"
