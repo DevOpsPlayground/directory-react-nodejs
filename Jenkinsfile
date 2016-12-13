@@ -4,7 +4,8 @@ node {
   checkout scm
 
   // Define the current WORKSPACE
-  def workspace = sh returnStdout: true, script: 'pwd'
+  // def workspace = sh returnStdout: true, script: 'pwd'
+  echo "Workspace path is now ${env.WORKSPACE}"
 
   // Get the code and build
   stage('Build and Test') {
@@ -13,7 +14,7 @@ node {
   }
 
   stage('Build and push Docker image') {
-    sh "rm -rf ${workspace}/node_modules"
+    sh "rm -rf ${env.WORKSPACE}/node_modules"
     sh 'npm install --production'
     sh "docker build -f Dockerfile -t localhost:5000/emp_dir:${env.BUILD_NUMBER} ."
     sh "docker push localhost:5000/emp_dir:${env.BUILD_NUMBER}"
