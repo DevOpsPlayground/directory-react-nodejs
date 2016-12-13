@@ -16,8 +16,8 @@ node {
   stage('Build and push Docker image') {
     sh "rm -rf ${env.WORKSPACE}/node_modules"
     sh 'npm install --production'
-    sh "docker build -f Dockerfile -t localhost:5000/emp_dir:${env.BUILD_NUMBER} ."
-    sh "docker push localhost:5000/emp_dir:${env.BUILD_NUMBER}"
+    sh "docker build -f Dockerfile -t sameetn/emp_dir:${env.BUILD_NUMBER} ."
+    sh "docker push sameetn/emp_dir:${env.BUILD_NUMBER}"
   }
 
 }
