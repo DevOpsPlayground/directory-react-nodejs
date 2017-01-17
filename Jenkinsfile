@@ -11,7 +11,7 @@ node {
   stage('Build and Test') {
     sh '''
       npm config set spin false
-      npm install --no-optional'
+      npm install --no-optional
       npm test'''
   }
 
