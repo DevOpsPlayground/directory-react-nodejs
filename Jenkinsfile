@@ -9,6 +9,7 @@ node {
 
   // Get the code and build
   stage('Build and Test') {
+    sh 'npm install'
     sh '''
       export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
       if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi
@@ -21,7 +22,6 @@ node {
       sleep 3
       npm config set spin false
      '''
-    sh 'npm install'
     sh 'npm test'
   }
 
