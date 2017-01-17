@@ -9,7 +9,7 @@ node {
 
   // Get the code and build
   stage('Build and Test') {
-    sh '
+    sh '''
       export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
       if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi
       if [ $(phantomjs --version) != '2.1.1' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2; fi
@@ -20,7 +20,7 @@ node {
       # "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 3840x2160x16"
       sleep 3
       npm config set spin false
-     '
+     '''
     sh 'npm install'
     sh 'npm test'
   }
