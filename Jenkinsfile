@@ -19,16 +19,22 @@ node {
     sh "rm -rf ${env.WORKSPACE}/node_modules"
     sh 'npm install --production'
     sh "docker build -f Dockerfile -t sameetn/emp_dir:${env.BUILD_NUMBER} ."
-    sh "docker push sameetn/emp_dir:${env.BUILD_NUMBER}"
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4420e725-08a2-4769-b97d-2388c41fb006', 
+          usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS']]) {
+      sh """
+        docker login -u \$DOCKER_USER -p \$DOCKER_PASS
+        docker push sameetn/emp_dir:${env.BUILD_NUMBER}
+      """
+    }
   }
 
   stage('Deploy to Swarm Cluster') {
     def isPresent = sh returnStdout: true, script: "ssh -t root@swarm-master.tmsapp.us 'docker-machine ssh swarm-master docker service ls | grep emp_dir | tr -s \" \" \" \" | cut -d \" \" -f2'"
     echo "Service status is ${isPresent?.trim().equals('emp_dir')}"
     if(isPresent?.trim().equals('emp_dir')) {
-      sh "ssh -t root@swarm-master.tmsapp.us 'docker service update --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir'"  
+      sh "ssh -t root@swarm-master.tmsapp.us 'docker service update --replicas 5 --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir'"  
     } else {
-      sh "ssh -t root@swarm-master.tmsapp.us 'docker service create --name emp_dir sameetn/emp_dir:${env.BUILD_NUMBER}'"
+      sh "ssh -t root@swarm-master.tmsapp.us 'docker service create --replicas 5 --name emp_dir sameetn/emp_dir:${env.BUILD_NUMBER}'"
     }
   }
 }
