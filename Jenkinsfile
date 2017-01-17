@@ -33,7 +33,7 @@ node {
   }
 
   stage('Deploy to Swarm Cluster') {
-    def isPresent = sh returnStdout: true, script: 'docker-machine ssh swarm-master docker service ls | grep emp_dir | tr -s " " " " | cut -d " " -f2'
+    def isPresent = sh returnStdout: true, script: "ssh -t root@swarm-master.tmsapp.us 'docker-machine ssh swarm-master docker service ls | grep emp_dir | tr -s \" \" \" \" | cut -d \" \" -f2'"
     echo "Service status is ${isPresent?.trim().equals('emp_dir')}"
     if(isPresent?.trim().equals('emp_dir')) {
       sh "ssh -t root@swarm-master.tmsapp.us 'docker service update --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir'"  
