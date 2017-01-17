@@ -32,9 +32,9 @@ node {
     def isPresent = sh returnStdout: true, script: "ssh -t root@swarm-master.tmsapp.us 'docker service ls | grep emp_dir | tr -s \" \" \" \" | cut -d \" \" -f2'"
     echo "Service status is ${isPresent?.trim().equals('emp_dir')}"
     if(isPresent?.trim().equals('emp_dir')) {
-      sh "ssh -t root@swarm-master.tmsapp.us 'docker service update --replicas 5 --update-delay 2s --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir'"  
+      sh "ssh -t root@swarm-master.tmsapp.us 'docker service update --replicas 10 --update-delay 1s --image sameetn/emp_dir:${env.BUILD_NUMBER} emp_dir'"  
     } else {
-      sh "ssh -t root@swarm-master.tmsapp.us 'docker service create --replicas 5 --name emp_dir sameetn/emp_dir:${env.BUILD_NUMBER}'"
+      sh "ssh -t root@swarm-master.tmsapp.us 'docker service create --replicas 10 --name emp_dir sameetn/emp_dir:${env.BUILD_NUMBER}'"
     }
   }
 }
