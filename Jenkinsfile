@@ -3,10 +3,6 @@ node {
   deleteDir()
   checkout scm
 
-  // Define the current WORKSPACE
-  // def workspace = sh returnStdout: true, script: 'pwd'
-  echo "Workspace path is now ${env.WORKSPACE}"
-
   // Get the code and build
   stage('Build and Test') {
     sh '''
