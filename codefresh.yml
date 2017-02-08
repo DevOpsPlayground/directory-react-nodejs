@@ -1,0 +1,15 @@
+version: '1.0'
+steps:
+  perform_tests:
+    image_name: node:6
+    working_directory: ${{main_clone}}
+    description: Performing unit tests...
+    commands:
+      - npm install
+      - npm test
+  build_image:
+    type: build
+    description: Building the image...
+    image-name: sameetn/directory-react-nodejs
+    tag: latest # ${{CF_BRANCH}}
+
